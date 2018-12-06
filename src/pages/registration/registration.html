@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>Registration</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item>
+          <ion-label color="primary" stacked>First Name</ion-label>
+          <ion-input type="text" [(ngModel)]="newUser.firstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" stacked>Last Name</ion-label>
+          <ion-input type="text" [(ngModel)]="newUser.lastName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" stacked>Email</ion-label>
+          <ion-input type="email" [(ngModel)]="newUser.email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Confirm Email</ion-label>
+            <ion-input type="email" [(ngModel)]="confirmEmail"></ion-input>
+          </ion-item>
+        <ion-item>
+          <ion-label color="primary" stacked>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="newUser.password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" stacked>Confirm Password</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button full color="dark" (click)="register()">Register</button>
+
+</ion-content>
