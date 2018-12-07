@@ -7,23 +7,31 @@ import { Chart } from 'chart.js'
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
-  ytdRange = '1'
+  ytdRange: number = 1
 
   @ViewChild('lineCanvas') lineCanvas
   lineChart: any
+  labels: string[]
+  data: number[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+    this.loadChart()
+  }
+
+  loadChart() {
+    this.retrieveLabelsAndData()
+
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: this.labels,
         datasets: [
           {
-            label: 'YTD Sales',
+            label: 'Sales',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -41,14 +49,45 @@ export class DashboardPage {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: this.data,
             spanGaps: false,
           }
         ]
       }
 
     })
+  }
 
+  retrieveLabelsAndData() {
+    if (this.ytdRange === 1) {
+      this.labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4']
+      this.data = [87, 34, 57, 12]
+    } else if (this.ytdRange === 4) {
+      this.labels = [
+        'Week 1', 'Week 2', 'Week 3', 'Week 4',
+        'Week 5', 'Week 6', 'Week 7', 'Week 8',
+        'Week 9', 'Week 10', 'Week 11', 'Week 12',
+        'Week 13', 'Week 14', 'Week 15', 'Week 16',
+      ]
+      this.data = [87, 34, 57, 12, 22, 57, 74, 37, 55, 22, 98, 75, 34, 10, 7, 45]
+    } else if (this.ytdRange === 7) {
+      this.labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7']
+      this.data = [45, 76, 12, 98, 67, 11, 71]
+    } else if (this.ytdRange === 10) {
+      this.labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7',
+        'Month 8', 'Month 9', 'Month 10']
+      this.data = [45, 76, 12, 98, 67, 11, 71, 41, 55, 88]
+    } else {
+      this.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      this.data = [45, 76, 12, 98, 67, 11, 71, 41, 55, 88, 6, 13]
+    }
+  }
+
+  rangeChanged() {
+    this.retrieveLabelsAndData()
+    this.lineChart.data.labels = this.labels
+    this.lineChart.data.datasets[0].data = this.data
+    this.lineChart.update()
   }
 
 }

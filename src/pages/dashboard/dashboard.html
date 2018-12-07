@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-range min="1" max="12" step="3" snaps="true" [(ngModel)]="ytdRange" color="primary">
+  <ion-range min="1" max="12" step="3" snaps="true" [(ngModel)]="ytdRange" color="primary" (ionChange)="rangeChanged()">
     <ion-label range-left small>1 Mo</ion-label>
     <ion-label range-right>1 Yr</ion-label>
   </ion-range>
