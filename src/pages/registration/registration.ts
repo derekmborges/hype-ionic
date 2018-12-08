@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { User } from '../../app/models/user';
+import { Theme } from '../../app/models/theme';
 
 @Component({
   selector: 'page-registration',
@@ -12,7 +13,8 @@ export class RegistrationPage {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    theme: Theme.Light.toString()
   }
   confirmEmail: string
   confirmPassword: string

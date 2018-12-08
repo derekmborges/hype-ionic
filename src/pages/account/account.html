@@ -1,14 +1,25 @@
 <ion-header>
 
-  <ion-navbar color="dark">
+  <ion-navbar>
     <ion-title>Account</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-  <button ion-button full color="tertiary" (click)="logout()" float-end>Logout</button>
+  <ion-title>Derek Borges</ion-title>
+
+  <ion-item *ngIf="selectedTheme" no-padding>
+    <ion-label>Color Theme</ion-label>
+    <ion-select [(ngModel)]="selectedTheme" (ionChange)="changeTheme()">
+      <ion-option value="theme-light">Light</ion-option>
+      <ion-option value="theme-dark">Dark</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-footer no-shadow>
+    <button ion-button full color="tertiary" (click)="logout()" float-end>Logout</button>
+  </ion-footer>
 
 </ion-content>

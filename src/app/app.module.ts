@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegistrationPage } from '../pages/registration/registration';
 import { Authentication } from '../providers/authentication/authentication';
 import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
+import { UserSettings } from '../providers/user-settings/user-settings';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Authentication
+    Authentication,
+    UserSettings
   ]
 })
 export class AppModule {}

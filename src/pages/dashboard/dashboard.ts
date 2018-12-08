@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Chart } from 'chart.js'
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Chart, ChartConfiguration } from 'chart.js'
 
 @Component({
   selector: 'page-dashboard',
@@ -10,22 +10,33 @@ export class DashboardPage {
   ytdRange: number = 1
 
   @ViewChild('lineCanvas') lineCanvas
+  @ViewChild('lineCanvas1') lineCanvas1
+  @ViewChild('lineCanvas2') lineCanvas2
   lineChart: any
+  lineChart1: any
+  lineChart2: any
   labels: string[]
   data: number[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private loadingController: LoadingController) {
   }
 
   ionViewDidLoad() {
-    this.loadChart()
+    this.loadCharts()
   }
 
-  loadChart() {
+  loadCharts() {
+    let loader = this.loadingController.create({
+      content: 'Loading...',
+    })
+    loader.present()
+
     this.retrieveLabelsAndData()
 
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-
+    let chartOptions: ChartConfiguration = {
       type: 'line',
       data: {
         labels: this.labels,
@@ -54,8 +65,13 @@ export class DashboardPage {
           }
         ]
       }
+    }
 
-    })
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, chartOptions)
+    this.lineChart1 = new Chart(this.lineCanvas1.nativeElement, chartOptions)
+    this.lineChart2 = new Chart(this.lineCanvas2.nativeElement, chartOptions)
+
+    loader.dismiss()
   }
 
   retrieveLabelsAndData() {
@@ -88,6 +104,14 @@ export class DashboardPage {
     this.lineChart.data.labels = this.labels
     this.lineChart.data.datasets[0].data = this.data
     this.lineChart.update()
+
+    this.lineChart1.data.labels = this.labels
+    this.lineChart1.data.datasets[0].data = this.data
+    this.lineChart1.update()
+
+    this.lineChart2.data.labels = this.labels
+    this.lineChart2.data.datasets[0].data = this.data
+    this.lineChart2.update()
   }
 
 }

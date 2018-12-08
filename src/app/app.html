@@ -1,1 +1,1 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-nav *ngIf="theme" [root]="rootPage" [class]="theme.toString()"></ion-nav>

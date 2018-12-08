@@ -72,6 +72,8 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
+@import "./theme.light.scss";
+@import "./theme.dark.scss";
 
 
 // Ionicons
