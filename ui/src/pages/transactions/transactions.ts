@@ -16,6 +16,9 @@ export class TransactionsPage {
 
   openAddTransaction() {
     const modal = this.modalCtrl.create(AddTransactionPage)
+    modal.onDidDismiss(data => {
+      console.log(data)
+    })
     modal.present()
   }
 

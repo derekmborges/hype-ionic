@@ -1,4 +1,3 @@
-import { User } from './../../app/models/user';
 import { UserSettings } from './../../providers/user-settings/user-settings';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';

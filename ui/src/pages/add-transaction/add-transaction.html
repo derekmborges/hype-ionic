@@ -5,6 +5,9 @@
       <button ion-button icon-only (click)="close()">
         <ion-icon name="close"></ion-icon>
       </button>
+      <button ion-button icon-only (click)="save()">
+        <ion-icon name="create"></ion-icon>
+      </button>
     </ion-buttons>
     <ion-title>Add Transaction</ion-title>
   </ion-navbar>
@@ -13,5 +16,49 @@
 
 
 <ion-content padding>
+
+  <ion-card>
+    <ion-list-header>Purchase Details</ion-list-header>
+    <ion-item>
+      <ion-label>Have/Purchase</ion-label>
+      <ion-select interface="popover" placeholder="Select"
+        [(ngModel)]="itemSource" (ionChange)="itemSourceChanged()">
+        <ion-option value="have">Have</ion-option>
+        <ion-option value="purchased">Purchased</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Purchase Date</ion-label>
+      <ion-datetime placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"
+        [disabled]="!canEditPurchase" [(ngModel)]="purchaseDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Purchase Amount</ion-label>
+      <ion-input [disabled]="!canEditPurchase" [(ngModel)]="purchaseAmount"
+        placeholder="0.00" text-right></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-list-header>Sale Details</ion-list-header>
+    <ion-item>
+      <ion-label>Item's current state</ion-label>
+      <ion-select interface="popover" placeholder="Select"
+        [(ngModel)]="itemState" (ionChange)="itemStateChanged()">
+        <ion-option value="in_stock">In stock</ion-option>
+        <ion-option value="sold">Sold</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sale Date</ion-label>
+      <ion-datetime [disabled]="!isSold" [(ngModel)]="saleDate"
+        placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sale Amount</ion-label>
+      <ion-input [disabled]="!isSold" [(ngModel)]="saleAmount"
+        placeholder="0.00" text-right></ion-input>
+    </ion-item>
+  </ion-card>
 
 </ion-content>
