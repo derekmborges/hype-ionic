@@ -4,6 +4,9 @@
 # Ignore editor elixir language server
 /.elixir_ls/
 
+# Editor stuff
+/hype.iml
+
 # If you run "mix test --cover", coverage assets end up here.
 /cover/
 
