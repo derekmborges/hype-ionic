@@ -13,8 +13,8 @@ import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { RegistrationPage } from '../pages/registration/registration';
 import { Authentication } from '../providers/authentication/authentication';
-import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 import { UserSettings } from '../providers/user-settings/user-settings';
+import { TransactionPage } from '../pages/transaction/transaction';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { UserSettings } from '../providers/user-settings/user-settings';
     TabsPage,
     DashboardPage,
     TransactionsPage,
-    AddTransactionPage,
+    TransactionPage,
     AnalyticsPage,
     AccountPage,
     LoginPage,
@@ -39,7 +39,7 @@ import { UserSettings } from '../providers/user-settings/user-settings';
     TabsPage,
     DashboardPage,
     TransactionsPage,
-    AddTransactionPage,
+    TransactionPage,
     AnalyticsPage,
     AccountPage,
     LoginPage,

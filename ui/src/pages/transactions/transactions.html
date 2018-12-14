@@ -7,7 +7,16 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-card *ngIf="transactions">
+    <ion-list>
+      <ion-list-header>All Transactions</ion-list-header>
+      <button ion-item *ngFor="let item of transactions" (click)="openTransaction(item.itemName)">
+        {{ item.itemName }}
+      </button>
+    </ion-list>
+  </ion-card>
 
 
   <ion-fab bottom right>
