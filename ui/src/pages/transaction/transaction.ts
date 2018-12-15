@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { Transaction } from '../../app/models/transaction';
 
 @Component({
@@ -9,12 +9,15 @@ import { Transaction } from '../../app/models/transaction';
 })
 export class TransactionPage {
   transaction: Transaction
+  transactionExists = false
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     private loading: LoadingController,
+    private alert: AlertController,
+    private toast: ToastController,
     private storage: Storage) {
   }
 
@@ -46,10 +49,11 @@ export class TransactionPage {
     loader.present()
     this.storage.get(itemName).then(value => {
       if (value) {
-        console.log('from storage: ', value)
+        console.log('from storage: ', JSON.parse(value))
         this.transaction = JSON.parse(value)
       }
     })
+    this.transactionExists = true
     loader.dismiss()
     console.log(this.transaction)
   }
@@ -60,6 +64,34 @@ export class TransactionPage {
 
   save() {
     this.viewCtrl.dismiss(this.transaction)
+  }
+
+  confirmDelete() {
+    this.alert.create({
+      message: 'Are you sure you want to delete this transaction?',
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteTransaction()
+          }
+        }
+      ]
+    }).present()
+  }
+
+  deleteTransaction() {
+    this.storage.remove(this.transaction.itemName).then(() => {
+      this.toast.create({
+        message: 'Transaction deleted.',
+        duration: 3000,
+        dismissOnPageChange: false
+      }).present()
+      this.viewCtrl.dismiss(null)
+    })
   }
 
   get canEditPurchase(): boolean {

@@ -5,8 +5,11 @@
       <button ion-button icon-only (click)="close()">
         <ion-icon name="close"></ion-icon>
       </button>
+      <button ion-button icon-only *ngIf="transactionExists" (click)="confirmDelete()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="save()">
-        <ion-icon name="create"></ion-icon>
+        <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Add Transaction</ion-title>
@@ -15,64 +18,65 @@
 </ion-header>
 
 
-<ion-content *ngIf="transaction" padding>
+<ion-content>
+  <div *ngIf="transaction">
+    <ion-card>
+      <ion-card-header>Item Details</ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Item Name</ion-label>
+          <ion-input [(ngModel)]="transaction.itemName" placeholder="Enter name"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-header>Purchase Details</ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Have/Purchase</ion-label>
+          <ion-select interface="popover" placeholder="Select"
+            [(ngModel)]="transaction.itemSource">
+            <ion-option value="have">Have</ion-option>
+            <ion-option value="purchased">Purchased</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Purchase Date</ion-label>
+          <ion-datetime placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"
+            [disabled]="!canEditPurchase" [(ngModel)]="transaction.purchaseDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Purchase Amount</ion-label>
+          <ion-input [disabled]="!canEditPurchase" [(ngModel)]="transaction.purchaseAmount"
+            placeholder="0.00" text-right></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>Item Details</ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Item Name</ion-label>
-        <ion-input [(ngModel)]="transaction.itemName" placeholder="Enter name"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>Purchase Details</ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Have/Purchase</ion-label>
-        <ion-select interface="popover" placeholder="Select"
-          [(ngModel)]="transaction.itemSource">
-          <ion-option value="have">Have</ion-option>
-          <ion-option value="purchased">Purchased</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Purchase Date</ion-label>
-        <ion-datetime placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"
-          [disabled]="!canEditPurchase" [(ngModel)]="transaction.purchaseDate"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Purchase Amount</ion-label>
-        <ion-input [disabled]="!canEditPurchase" [(ngModel)]="transaction.purchaseAmount"
-          placeholder="0.00" text-right></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>Sale Details</ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Item's current state</ion-label>
-        <ion-select interface="popover" placeholder="Select"
-          [(ngModel)]="transaction.itemState">
-          <ion-option value="in_stock">In stock</ion-option>
-          <ion-option value="sold">Sold</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Sale Date</ion-label>
-        <ion-datetime [disabled]="!canEditSale" [(ngModel)]="transaction.saleDate"
-          placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Sale Amount</ion-label>
-        <ion-input [disabled]="!canEditSale" [(ngModel)]="transaction.saleAmount"
-          placeholder="0.00" text-right></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>Sale Details</ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Item's current state</ion-label>
+          <ion-select interface="popover" placeholder="Select"
+            [(ngModel)]="transaction.itemState">
+            <ion-option value="in_stock">In stock</ion-option>
+            <ion-option value="sold">Sold</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sale Date</ion-label>
+          <ion-datetime [disabled]="!canEditSale" [(ngModel)]="transaction.saleDate"
+            placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sale Amount</ion-label>
+          <ion-input [disabled]="!canEditSale" [(ngModel)]="transaction.saleAmount"
+            placeholder="0.00" text-right></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
 </ion-content>

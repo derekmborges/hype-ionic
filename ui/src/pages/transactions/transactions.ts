@@ -24,27 +24,27 @@ export class TransactionsPage {
   }
 
   refreshTransactions() {
-    this.transactions = []
+    const transactions = []
     this.storage.keys().then(keys => {
       keys.forEach(key => {
         if (key.startsWith("Shoe")) {
           this.storage.get(key).then(value => {
-            this.transactions.push(JSON.parse(value))
+            transactions.push(JSON.parse(value))
           })
         }
       })
+      this.transactions = transactions
     })
-    console.log('refreshed list: ', this.transactions)
   }
 
   openTransaction(name: string) {
     console.log(`opening ${name}: `)
     const modal = this.modalCtrl.create(TransactionPage, {itemName: name})
     modal.onDidDismiss((t: Transaction) => {
-      console.log('returning from update modal: ', t)
       if (t) {
         this.updateTransaction(t)
       }
+      this.refreshTransactions()
     })
     modal.present()
   }
@@ -63,7 +63,6 @@ export class TransactionsPage {
   openAddTransaction() {
     const modal = this.modalCtrl.create(TransactionPage)
     modal.onDidDismiss(data => {
-      console.log('returning from add modal: ', data)
       if (data) {
         this.addTransaction(data)
       }
