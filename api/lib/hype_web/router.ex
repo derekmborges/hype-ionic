@@ -26,5 +26,6 @@ defmodule HypeWeb.Router do
     pipe_through [:api, :auth, :ensure_auth]
 
     get "/users/", UserController, :current_user
+    post "/items/", ItemController, :create
   end
 end
