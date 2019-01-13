@@ -40,5 +40,7 @@ defmodule HypeWeb.Endpoint do
     key: "_hype_key",
     signing_salt: "eAGvwh/w"
 
+  plug CORSPlug
+
   plug HypeWeb.Router
 end
