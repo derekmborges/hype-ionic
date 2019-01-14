@@ -42,5 +42,8 @@ defmodule HypeWeb.Endpoint do
 
   plug CORSPlug
 
+  # TODO: Get this working for every request
+  # plug HypeWeb.BodyConversion
+
   plug HypeWeb.Router
 end

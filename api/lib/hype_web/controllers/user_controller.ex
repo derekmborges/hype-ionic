@@ -2,6 +2,7 @@ defmodule HypeWeb.UserController do
   use HypeWeb, :controller
 
   alias Hype.{Accounts, Accounts.User}
+  alias HypeWeb.Helper
 
   action_fallback(HypeWeb.FallbackController)
 
@@ -12,20 +13,8 @@ defmodule HypeWeb.UserController do
     |> render("show.json", user: user)
   end
 
-  def create(conn, %{
-        "user" => %{
-          "email" => email,
-          "firstName" => first_name,
-          "lastName" => last_name,
-          "password" => password
-        }
-      }) do
-    user_params = %{
-      "email" => email,
-      "first_name" => first_name,
-      "last_name" => last_name,
-      "password" => password
-    }
+  def create(conn, body_params) do
+    %{"user" => user_params} = Helper.elixirify(body_params)
 
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
