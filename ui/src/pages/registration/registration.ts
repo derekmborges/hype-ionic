@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { User } from '../../app/models/user';
-import { Theme } from '../../app/models/theme';
+import { HttpService } from '../../providers/http-service/http-service';
 
 @Component({
   selector: 'page-registration',
@@ -10,40 +9,51 @@ import { Theme } from '../../app/models/theme';
 })
 export class RegistrationPage {
   newUser: User = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    theme: Theme.Light.toString()
+    firstName: 'derek',
+    lastName: 'borges',
+    email: 'db@gmail.com',
+    password: 'hello'
   }
-  confirmEmail: string
-  confirmPassword: string
-
-  
+  confirmEmail: string = 'db@gmail.com'
+  confirmPassword: string = 'hello'
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private storage: Storage,
-    private alert: AlertController) {
+    private alert: AlertController,
+    private toast: ToastController,
+    private http: HttpService) {
   }
 
   register() {
     console.log('Attempting to register user', this.newUser)
     
-    if (this.newUser.email === this.confirmEmail && this.newUser.password === this.confirmPassword) {
-      this.storage.get(this.newUser.email).then(value => {
-        if (!value) {
-          this.storage.set(this.newUser.email, JSON.stringify(this.newUser))
-          this.alert.create({subTitle: 'You are now registered!'}).present()
-        } else {
-          this.alert.create({subTitle: 'The email you entered already exists.'}).present()
-        }
+    if (this.validForm) {
+      this.http.post('users', this.newUser)
+        .subscribe(response => {
+          const responseData = JSON.parse(response._body)
+          console.log(responseData)
+          if (responseData && responseData.ok) {
+            this.alert.create({
+              title: 'Success',
+              subTitle: 'You are now registered!',
+              buttons: [{text: 'OK'}]
+            }).present()
+          }
+        }, (error) => {
+          console.log(error)
+          this.toast.create({
+            message: 'Error registering new user. Try again',
+          }).present()
       })
     } else {
       this.alert.create({subTitle: 'Email and password fields do not match.'}).present()
     }
     
+  }
+
+  get validForm(): boolean {
+    return this.newUser.email === this.confirmEmail && this.newUser.password === this.confirmPassword
   }
 
 }

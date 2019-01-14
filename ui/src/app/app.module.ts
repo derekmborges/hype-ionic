@@ -15,6 +15,8 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { Authentication } from '../providers/authentication/authentication';
 import { UserSettings } from '../providers/user-settings/user-settings';
 import { TransactionPage } from '../pages/transaction/transaction';
+import { HttpService } from '../providers/http-service/http-service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { TransactionPage } from '../pages/transaction/transaction';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(HypeApp)
   ],
@@ -50,7 +53,8 @@ import { TransactionPage } from '../pages/transaction/transaction';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Authentication,
-    UserSettings
+    UserSettings,
+    HttpService
   ]
 })
 export class AppModule {}

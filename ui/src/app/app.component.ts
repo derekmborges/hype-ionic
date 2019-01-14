@@ -5,9 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-import { Authentication } from '../providers/authentication/authentication';
 import { UserSettings } from './../providers/user-settings/user-settings';
 import { Theme } from './models/theme';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +20,7 @@ export class HypeApp {
       platform: Platform,
       statusBar: StatusBar,
       splashScreen: SplashScreen,
-      private auth: Authentication,
+      private storage: Storage,
       private userSettings: UserSettings,
       events: Events) {
     platform.ready().then(() => {
@@ -41,7 +41,16 @@ export class HypeApp {
   }
 
   refreshRoot() {
-    this.rootPage = this.auth.isLoggedIn() ? TabsPage : LoginPage
+    this.isLoggedIn().then(isLoggedIn => {
+      this.rootPage = isLoggedIn ? TabsPage : LoginPage
+    })
+  }
+
+  isLoggedIn(): Promise<boolean> {
+    return this.storage.get('authToken').then(value => {
+      console.log('authToken in storage: ', value)
+      return value != null
+    })
   }
 
   refreshTheme() {
