@@ -3,6 +3,8 @@ defmodule HypeWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    plug HypeWeb.BodyConversion
   end
 
   pipeline :auth do

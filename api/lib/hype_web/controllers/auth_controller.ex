@@ -5,7 +5,7 @@ defmodule HypeWeb.AuthController do
 
   action_fallback(HypeWeb.FallbackController)
 
-  def login(conn, %{"email" => email, "password" => password}) do
+  def login(conn = %{body_params: %{"email" => email, "password" => password}}, _param) do
     Auth.authenticate_user(email, password)
     |> login_reply(conn)
   end
