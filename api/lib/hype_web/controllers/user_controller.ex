@@ -13,10 +13,8 @@ defmodule HypeWeb.UserController do
     |> render("show.json", user: user)
   end
 
-  def create(conn, body_params) do
-    %{"user" => user_params} = Helper.elixirify(body_params)
-
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+  def create(conn, user_params) do
+    with {:ok, %User{} = user} <- Accounts.create_user(Helper.elixirify(user_params)) do
       conn
       |> render("show.json", user: user)
     end
