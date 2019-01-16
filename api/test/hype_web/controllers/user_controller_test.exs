@@ -10,6 +10,13 @@ defmodule HypeWeb.UserControllerTest do
     password: "test_password"
   }
 
+  @camel_case_user_params %{
+    "firstName" => "test",
+    "lastName" => "user",
+    "email" => "test.user@example.com",
+    "password" => "test_password"
+  }
+
   @duplicate_email_user_params %{
     first_name: "test",
     last_name: "user",
@@ -37,8 +44,8 @@ defmodule HypeWeb.UserControllerTest do
 
       assert json_response(conn, 200)["ok"] == true
       assert json_response(conn, 200)["data"]["user"]["email"] == @user_params.email
-      assert json_response(conn, 200)["data"]["user"]["first_name"] == @user_params.first_name
-      assert json_response(conn, 200)["data"]["user"]["last_name"] == @user_params.last_name
+      assert json_response(conn, 200)["data"]["user"]["firstName"] == @user_params.first_name
+      assert json_response(conn, 200)["data"]["user"]["lastName"] == @user_params.last_name
     end
   end
 
@@ -46,12 +53,29 @@ defmodule HypeWeb.UserControllerTest do
     test "creates a user in the database", %{conn: conn} do
       conn =
         conn
-        |> post("/api/users", %{"user" => @user_params})
+        |> post("/api/users", @user_params)
 
       assert json_response(conn, 200)["ok"] == true
       assert json_response(conn, 200)["data"]["user"]["email"] == @user_params.email
-      assert json_response(conn, 200)["data"]["user"]["first_name"] == @user_params.first_name
-      assert json_response(conn, 200)["data"]["user"]["last_name"] == @user_params.last_name
+      assert json_response(conn, 200)["data"]["user"]["firstName"] == @user_params.first_name
+      assert json_response(conn, 200)["data"]["user"]["lastName"] == @user_params.last_name
+
+      id = json_response(conn, 200)["data"]["user"]["id"]
+
+      user_from_database = Accounts.get_user(id)
+
+      assert user_from_database != nil
+    end
+
+    test "create a user with camel case parameters", %{conn: conn} do
+      conn =
+        conn
+        |> post("/api/users", @camel_case_user_params)
+
+      assert json_response(conn, 200)["ok"] == true
+      assert json_response(conn, 200)["data"]["user"]["email"] == @user_params.email
+      assert json_response(conn, 200)["data"]["user"]["firstName"] == @user_params.first_name
+      assert json_response(conn, 200)["data"]["user"]["lastName"] == @user_params.last_name
 
       id = json_response(conn, 200)["data"]["user"]["id"]
 
@@ -65,7 +89,7 @@ defmodule HypeWeb.UserControllerTest do
 
       conn =
         conn
-        |> post("/api/users", %{"user" => @duplicate_email_user_params})
+        |> post("/api/users", @duplicate_email_user_params)
 
       assert json_response(conn, 422)["ok"] == false
       assert json_response(conn, 422)["errors"]["email"] == ["has already been taken"]

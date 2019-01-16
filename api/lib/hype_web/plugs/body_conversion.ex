@@ -1,10 +1,9 @@
-defmodule HypeWeb.BodyConversion do
+defmodule HypeWeb.Plugs.BodyConversion do
   alias HypeWeb.Helper
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    IO.puts "BodyConversion call method"
     if Map.has_key?(conn, :body_params) do
       Map.update!(conn, :body_params, fn body ->
         Helper.elixirify(body)

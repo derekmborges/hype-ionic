@@ -20,7 +20,7 @@ defmodule HypeWeb.AuthControllerTest do
     test "returns 'account does not exist' error if no email found", %{conn: conn} do
       conn =
         conn
-        |> post("/api/authentication/login", %{"user" => @login_params})
+        |> post("/api/authentication/login", @login_params)
 
       assert json_response(conn, 200)["ok"] == false
       assert json_response(conn, 200)["error"] == "Account not found"
@@ -33,7 +33,7 @@ defmodule HypeWeb.AuthControllerTest do
 
       conn =
         conn
-        |> post("/api/authentication/login", %{"user" => incorrect_login_params})
+        |> post("/api/authentication/login", incorrect_login_params)
 
       assert json_response(conn, 200)["ok"] == false
       assert json_response(conn, 200)["error"] == "Incorrect email or password"
@@ -44,7 +44,7 @@ defmodule HypeWeb.AuthControllerTest do
 
       conn =
         conn
-        |> post("/api/authentication/login", %{"user" => @login_params})
+        |> post("/api/authentication/login", @login_params)
 
       assert json_response(conn, 200)["ok"] == true
       assert json_response(conn, 200)["data"]["token"] |> String.length() > 0
