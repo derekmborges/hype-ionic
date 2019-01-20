@@ -44,7 +44,8 @@ defmodule Hype.MixProject do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:pbkdf2_elixir, "~> 0.12"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:decimal, "~> 1.6"}
     ]
   end
 
