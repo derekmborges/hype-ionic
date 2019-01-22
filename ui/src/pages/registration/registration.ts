@@ -30,8 +30,7 @@ export class RegistrationPage {
     
     if (this.validForm) {
       this.http.post('users', this.newUser)
-        .subscribe(response => {
-          const responseData = JSON.parse(response._body)
+        .subscribe(responseData => {
           console.log(responseData)
           if (responseData && responseData.ok) {
             this.alert.create({

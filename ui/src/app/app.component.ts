@@ -43,6 +43,9 @@ export class HypeApp {
   refreshRoot() {
     this.isLoggedIn().then(isLoggedIn => {
       this.rootPage = isLoggedIn ? TabsPage : LoginPage
+      if (isLoggedIn) {
+        this.userSettings.getCurrentUser()
+      }
     })
   }
 

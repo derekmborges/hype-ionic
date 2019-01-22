@@ -16,7 +16,7 @@ import { Authentication } from '../providers/authentication/authentication';
 import { UserSettings } from '../providers/user-settings/user-settings';
 import { TransactionPage } from '../pages/transaction/transaction';
 import { HttpService } from '../providers/http-service/http-service';
-import { HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(HypeApp)
   ],
@@ -54,6 +54,7 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Authentication,
     UserSettings,
+    HttpClient,
     HttpService
   ]
 })

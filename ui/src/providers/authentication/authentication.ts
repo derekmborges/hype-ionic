@@ -8,9 +8,15 @@ export class Authentication {
   constructor(public events: Events, private storage: Storage) {
   }
 
+  getToken(): Promise<string> {
+    return this.storage.get('authToken')
+  }
+
   logout() {
     console.log('Logging out...')
-    this.events.publish('user:authChanged')
+    this.storage.remove('authToken').then(() => {
+      this.events.publish('user:authChanged')
+    })
   }
 
 }

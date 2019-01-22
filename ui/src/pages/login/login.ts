@@ -31,9 +31,7 @@ export class LoginPage {
     console.log('credentials', this.email, this.password)
 
     this.http.post('authentication/login', {email: this.email, password: this.password})
-      .subscribe((response) => {
-        const data = JSON.parse(response._body)
-        console.log(data)
+      .subscribe((data) => {
         if (data && data.ok) {
           console.log('Successfully authenticated!')
           console.log('AuthToken: ', data.data.token)
