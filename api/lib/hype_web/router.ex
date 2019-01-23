@@ -1,6 +1,13 @@
 defmodule HypeWeb.Router do
   use HypeWeb, :router
 
+  # TODO:
+  # Add user_id to items table
+  # Add index routes to item_controller, and transaction_controller
+  #   to return all items/transactions for that user
+  # Add show routes to get one item/transaction
+  #   - authenticate to make sure the this is that user's item
+
   pipeline :api do
     plug :accepts, ["json"]
 

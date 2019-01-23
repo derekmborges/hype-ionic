@@ -16,6 +16,7 @@ defmodule Hype.CommonTestData do
   }
 
   @transaction_params %{
+    user_id: 1,
     item_id: 1,
     purchase_date: ~D[2019-01-01],
     purchase_amount: Decimal.new("111.11"),
@@ -25,6 +26,7 @@ defmodule Hype.CommonTestData do
   }
 
   @post_transaction_params %{
+    userId: 1,
     itemId: 1,
     purchaseDate: "2019-01-01",
     purchaseAmount: 111.11,

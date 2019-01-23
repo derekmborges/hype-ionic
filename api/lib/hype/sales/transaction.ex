@@ -3,6 +3,7 @@ defmodule Hype.Sales.Transaction do
   import Ecto.Changeset
 
   schema "transactions" do
+    field :user_id, :id
     field :item_id, :id
     field :item_state, :string
     field :purchase_date, :date
@@ -15,13 +16,14 @@ defmodule Hype.Sales.Transaction do
 
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:item_id,
+    |> cast(attrs, [:user_id,
+                    :item_id,
                     :item_state,
                     :purchase_date,
                     :purchase_amount,
                     :sale_date,
                     :sale_amount])
-    |> validate_required([:item_id, :item_state])
+    |> validate_required([:user_id, :item_id, :item_state])
     |> validate_inclusion(:item_state, ["sold", "in_inventory"])
   end
 end

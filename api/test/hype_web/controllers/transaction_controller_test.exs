@@ -15,6 +15,7 @@ defmodule HypeWeb.TransactionControllerTest do
 
       assert json_response(conn, 200)["ok"] == true
       assert json_response(conn, 200)["data"]["transaction"]["id"] != nil
+      assert json_response(conn, 200)["data"]["transaction"]["userId"] == TestData.transaction.user_id
       assert json_response(conn, 200)["data"]["transaction"]["itemId"] == TestData.transaction.item_id
       assert json_response(conn, 200)["data"]["transaction"]["itemState"] == TestData.transaction.item_state
       assert json_response(conn, 200)["data"]["transaction"]["purchaseDate"] == Date.to_string(TestData.transaction.purchase_date)
@@ -28,6 +29,7 @@ defmodule HypeWeb.TransactionControllerTest do
 
       transaction_from_database = Sales.get_transaction!(id)
 
+      assert transaction_from_database.user_id == TestData.transaction.user_id
       assert transaction_from_database.item_id == TestData.transaction.item_id
       assert transaction_from_database.item_state == TestData.transaction.item_state
       assert transaction_from_database.purchase_date == TestData.transaction.purchase_date

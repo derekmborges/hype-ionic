@@ -4,6 +4,7 @@ defmodule Hype.Repo.Migrations.CreateTransactionsTable do
   def change do
     create table(:transactions) do
       add :item_id, :id
+      add :user_id, :id
       add :item_state, :string
       add :purchase_date, :date
       add :purchase_amount, :decimal

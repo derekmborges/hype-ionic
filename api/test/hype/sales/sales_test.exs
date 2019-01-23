@@ -64,6 +64,7 @@ defmodule Hype.SalesTest do
   describe "transaction" do
     @transaction_params %{
       item_id: 1,
+      user_id: 1,
       item_state: "sold",
       purchase_date: ~D[2019-01-01],
       purchase_amount: Decimal.new("111.11"),
@@ -77,6 +78,7 @@ defmodule Hype.SalesTest do
       assert %Transaction{} = transaction = Sales.get_transaction(id)
 
       assert transaction.item_id == @transaction_params.item_id
+      assert transaction.user_id == @transaction_params.user_id
       assert transaction.item_state == @transaction_params.item_state
       assert transaction.purchase_date == @transaction_params.purchase_date
       assert transaction.purchase_amount == @transaction_params.purchase_amount

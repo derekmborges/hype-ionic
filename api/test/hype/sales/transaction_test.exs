@@ -5,6 +5,7 @@ defmodule Hype.TransactionTest do
 
   @transaction_params %{
     item_id: 1,
+    user_id: 1,
     purchase_date: ~D[2019-01-01],
     purchase_amount: Decimal.new("111.11"),
     sale_date: ~D[2019-01-02],

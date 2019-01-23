@@ -15,6 +15,7 @@ defmodule HypeWeb.TransactionView do
   def render("transaction.json", %{transaction: transaction}) do
     %{
       id: transaction.id,
+      userId: transaction.user_id,
       itemId: transaction.item_id,
       itemState: transaction.item_state,
       purchaseDate: transaction.purchase_date,
