@@ -10,6 +10,14 @@ defmodule Hype.CommonTestData do
   }
 
   @item_params %{
+    user_id: 1,
+    brand: "Nike",
+    model: "Air Jordan 3 Retro",
+    size: "12"
+  }
+
+  @post_item_params %{
+    userId: 1,
     brand: "Nike",
     model: "Air Jordan 3 Retro",
     size: "12"
@@ -39,6 +47,8 @@ defmodule Hype.CommonTestData do
 
   def item, do: @item_params
 
+  def post_item, do: @post_item_params
+
   def transaction, do: @transaction_params
 
   def post_transaction, do: @post_transaction_params
@@ -50,16 +60,20 @@ defmodule Hype.CommonTestData do
   def create(:transaction), do: create(:transaction, @transaction_params)
 
   def create(:user, attrs) do
-    {:ok, %User{} = user} = Accounts.create_user(attrs)
+    user = Map.merge(@user_params, attrs)
+    {:ok, %User{} = user} = Accounts.create_user(user)
     user
   end
 
   def create(:item, attrs) do
-    {:ok, %Item{} = item} = Sales.create_item(attrs)
+    item = Map.merge(@item_params, attrs)
+    {:ok, %Item{} = item} = Sales.create_item(item)
     item
   end
 
   def create(:transaction, attrs) do
-    {:ok, %Transaction{} = transaction} = Sales.create_transaction(attrs)
+    transaction = Map.merge(@transaction_params, attrs)
+    {:ok, %Transaction{} = transaction} = Sales.create_transaction(transaction)
+    transaction
   end
 end

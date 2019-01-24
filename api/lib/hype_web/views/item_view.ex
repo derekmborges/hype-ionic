@@ -15,6 +15,7 @@ defmodule HypeWeb.ItemView do
   def render("item.json", %{item: item}) do
     %{
       id: item.id,
+      user_id: item.user_id,
       brand: item.brand,
       model: item.model,
       size: item.size

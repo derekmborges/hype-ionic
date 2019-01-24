@@ -12,6 +12,12 @@ defmodule Hype.Sales do
 
   def get_item!(id), do: Repo.get!(Item, id)
 
+  def get_all_items_for_user(user_id) do
+    Item
+    |> where([i], i.user_id == ^user_id)
+    |> Repo.all()
+  end
+
   def create_item(attrs \\ %{}) do
     %Item{}
     |> Item.changeset(attrs)

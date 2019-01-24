@@ -11,9 +11,10 @@ defmodule HypeWeb.ItemControllerTest do
       conn =
         conn
         |> Guardian.Plug.sign_in(user)
-        |> post("/api/items", %{"item" => TestData.item})
+        |> post("/api/items", TestData.post_item)
 
       assert json_response(conn, 200)["ok"] == true
+      assert json_response(conn, 200)["data"]["item"]["user_id"] == TestData.item.user_id
       assert json_response(conn, 200)["data"]["item"]["brand"] == TestData.item.brand
       assert json_response(conn, 200)["data"]["item"]["model"] == TestData.item.model
       assert json_response(conn, 200)["data"]["item"]["size"] == TestData.item.size
@@ -24,6 +25,7 @@ defmodule HypeWeb.ItemControllerTest do
 
       item_from_database = Sales.get_item(id)
 
+      assert item_from_database.user_id == TestData.item.user_id
       assert item_from_database.brand == TestData.item.brand
       assert item_from_database.model == TestData.item.model
       assert item_from_database.size == TestData.item.size

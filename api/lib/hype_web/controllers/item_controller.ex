@@ -5,7 +5,7 @@ defmodule HypeWeb.ItemController do
 
   action_fallback(HypeWeb.FallbackController)
 
-  def create(conn = %{body_params: %{"item" => item_params}}, _params) do
+  def create(conn = %{body_params: item_params}, _params) do
     with {:ok, %Item{} = item} <- Sales.create_item(item_params) do
       conn
       |> render("show.json", item: item)

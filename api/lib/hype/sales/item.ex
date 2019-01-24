@@ -3,6 +3,7 @@ defmodule Hype.Sales.Item do
   import Ecto.Changeset
 
   schema "items" do
+    field :user_id, :id
     field :brand, :string
     field :model, :string
     field :size,  :string
@@ -13,7 +14,7 @@ defmodule Hype.Sales.Item do
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:brand, :model, :size])
-    |> validate_required([:brand, :model, :size])
+    |> cast(attrs, [:user_id, :brand, :model, :size])
+    |> validate_required([:user_id, :brand, :model, :size])
   end
 end
