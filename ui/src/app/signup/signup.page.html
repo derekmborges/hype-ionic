@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title slot="end">Signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" padding>
+
+  <!-- <ion-list color="dark" align-items-center justify-content-center> -->
+    <ion-item color="dark">
+      <ion-input clearInput placeholder="first name" required="true" color="medium"
+      [(ngModel)]="firstName"></ion-input>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-input clearInput placeholder="last name" required="true" color="medium"
+      [(ngModel)]="lastName"></ion-input>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-input clearInput placeholder="email" required="true" color="medium"
+      [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-input clearInput placeholder="confirm email" required="true" color="medium"
+      [(ngModel)]="confirmEmail"></ion-input>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-input clearInput type="password" placeholder="password" required="true" color="medium"
+      [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item color="dark">
+      <ion-input clearInput type="password" placeholder="confirm password" required="true" color="medium"
+      [(ngModel)]="confirmPassword"></ion-input>
+    </ion-item>
+    <ion-button expand="block" color="tertiary" margin-top (click)="signup()">Register</ion-button>
+
+  <!-- </ion-list> -->
+
+</ion-content>

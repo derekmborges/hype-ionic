@@ -1,62 +1,58 @@
 import { Component } from '@angular/core';
-import { Platform, Events } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
-import { UserSettings } from './../providers/user-settings/user-settings';
-import { Theme } from './models/theme';
-import { Storage } from '@ionic/storage';
+import { Platform, Events } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from '@angular/router';
+import { Authentication } from './services/authentication/authentication.service';
+import { UserSettings } from './services/user-settings/user-settings.service';
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html'
 })
-export class HypeApp {
-  rootPage:any
-  theme: Theme
-
+export class AppComponent {
   constructor(
-      platform: Platform,
-      statusBar: StatusBar,
-      splashScreen: SplashScreen,
-      private storage: Storage,
-      private userSettings: UserSettings,
-      events: Events) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault()
-      splashScreen.hide()
-      this.refreshRoot()
-      this.refreshTheme()
-      
-      events.subscribe('user:authChanged', () => {
-        this.refreshRoot()
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private router: Router,
+    private auth: Authentication,
+    private userSettings: UserSettings,
+    private events: Events
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then((readySource) => {
+      this.statusBar.styleDefault()
+      this.splashScreen.hide()
+      console.log('platform is ready: ' + readySource)
+      this.checkLoggedIn()
+
+      this.events.subscribe('user:authChanged', () => {
+        this.checkLoggedIn()
       })
-      events.subscribe('theme:changed', () => {
-        this.refreshTheme()
-      })
+
     });
   }
 
-  refreshRoot() {
-    this.isLoggedIn().then(isLoggedIn => {
-      this.rootPage = isLoggedIn ? TabsPage : LoginPage
+  checkLoggedIn() {
+    this.auth.isLoggedIn().then((isLoggedIn: Boolean) => {
       if (isLoggedIn) {
         this.userSettings.getCurrentUser()
+        this.router.navigate(['/'])
+      }
+      else {
+        console.log('not logged in. routing to login page...')
+        try {
+          this.router.navigate(['/login'])
+        } catch (error) {
+          console.log('error navigating to login', error)
+        }
+        
       }
     })
-  }
-
-  isLoggedIn(): Promise<boolean> {
-    return this.storage.get('authToken').then(value => {
-      console.log('authToken in storage: ', value)
-      return value != null
-    })
-  }
-
-  refreshTheme() {
-    this.theme = this.userSettings.getActiveTheme()
   }
 }
