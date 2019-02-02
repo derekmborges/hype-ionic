@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title id="login-header">Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,13 +9,13 @@
   <ion-list align-items-center justify-content-center>
     <ion-item>
       <ion-input clearInput placeholder="email" required="true" color="medium"
-      [(ngModel)]="email"></ion-input>
+      [(ngModel)]="email" id="login-email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-input clearInput type="password" placeholder="password" required="true" color="medium"
-      [(ngModel)]="password"></ion-input>
+      [(ngModel)]="password" id="login-password"></ion-input>
     </ion-item>
-    <ion-button expand="block" color="primary" margin-top (click)="login()">Login</ion-button>
+    <ion-button id="login-submit" expand="block" color="primary" margin-top (click)="login()">Login</ion-button>
     <ion-button expand="block" fill="outline" (click)="goToSignUp()">Sign Up</ion-button>
 
   </ion-list>
