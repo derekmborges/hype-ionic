@@ -3,7 +3,7 @@ import { browser, by, element } from "protractor";
 export class DashboardPage {
 
     navigateTo() {
-        browser.get('/tabs/tab1')
+        return browser.get('/tabs/tab1')
     }
 
     getPageTitleText() {
