@@ -20,4 +20,8 @@ export class LoginPage {
         element(by.css('[name="ion-input-1"]')).sendKeys(creds.password)
         element(by.id('login-submit')).click()
     }
+
+    errorToastText() {
+        return element(by.css('.toast-message')).getText()
+    }
 }

@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
             console.log('Error logging in: ', response.error)
             this.toast.create({
               message: response.error,
-              duration: 3000
+              duration: 10000
             }).then(it => it.present())
           } else {
             loader.dismiss()

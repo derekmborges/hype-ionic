@@ -11,16 +11,19 @@ import { UserSettings } from './services/user-settings/user-settings.service';
 import { HttpService } from './services/http-service/http-service.service';
 import { IonicStorageModule } from '@ionic/storage'
 import { HttpClientModule } from '@angular/common/http';
+import { AddTransactionPage } from './add-transaction/add-transaction.page';
+import { AddTransactionPageModule } from './add-transaction/add-transaction.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
+  entryComponents: [AddTransactionPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AddTransactionPageModule
   ],
   providers: [
     StatusBar,
