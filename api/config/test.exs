@@ -20,3 +20,7 @@ config :hype, Hype.Repo,
 config :hype, Hype.Auth.Guardian,
   issuer: "hype",
   secret_key: "oYTka4Wamx7NyeJWuwyhxPbpy0WVEU9HBaUZGumz/upFdbeiYFh15B5qAeXG4aiZ"
+
+config :hound,
+  driver: "chrome_driver",
+  browser: "chrome"
