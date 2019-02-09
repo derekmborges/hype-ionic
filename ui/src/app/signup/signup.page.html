@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button id="back-to-login"></ion-back-button>
     </ion-buttons>
-    <ion-title slot="end">Signup</ion-title>
+    <ion-title id="register-header" slot="end">Signup</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +34,7 @@
       <ion-input clearInput type="password" placeholder="confirm password" required="true" color="medium"
       [(ngModel)]="confirmPassword"></ion-input>
     </ion-item>
-    <ion-button expand="block" color="tertiary" margin-top (click)="signup()">Register</ion-button>
+    <ion-button id="register-submit" expand="block" color="tertiary" margin-top (click)="signup()">Register</ion-button>
 
   <!-- </ion-list> -->
 

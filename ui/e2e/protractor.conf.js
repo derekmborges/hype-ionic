@@ -6,10 +6,16 @@ const { SpecReporter } = require('jasmine-spec-reporter')
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/**/*.e2e-spec.ts'
+    // './src/**/*.e2e-spec.ts'
+    './src/account.e2e-spec.ts',
+    './src/register-login.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+
+    'chromeOptions': {
+      args: ['--headless', '--disable-gpu']
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
@@ -24,6 +30,5 @@ exports.config = {
       project: 'e2e/tsconfig.e2e.json'
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
-    browser.driver.manage().window().setSize(350, 700)
   }
 };

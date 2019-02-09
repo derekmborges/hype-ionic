@@ -42,6 +42,7 @@ export class SignupPage implements OnInit {
           console.log(error)
           this.toast.create({
             message: 'Error registering new user. Try again',
+            color: 'danger'
           }).then(it => it.present())
       })
     } else {

@@ -1,7 +1,8 @@
-import { AccountPage } from "./account.po";
-import { LoginPage } from "../login/login.po";
-import { AppPage } from "../app.po";
-import { Tabs } from "../tabs.po";
+import { AccountPage } from "./pages/account.po";
+import { LoginPage } from "./pages/login.po";
+import { AppPage } from "./pages/app.po";
+import { Tabs } from "./pages/tabs.po";
+import { browser } from "protractor";
 
 describe('Account Page', () => {
     let page: AccountPage
@@ -16,13 +17,19 @@ describe('Account Page', () => {
         tabs = new Tabs()
     })
 
-    it('redirects back to the login page when user clicks logout', () => {
+    afterEach(() => {
+        appPage.restart()
+    })
+
+    it('redirects back to the login screen upon logout', () => {
         appPage.navigateTo()
+        expect(loginPage.getPageTitle()).toEqual('Login')
         loginPage.fillCredentials()
 
         tabs.clickAccountTab()
         expect(page.getPageTitleText()).toEqual('Account')
         page.logout()
+
         expect(loginPage.getPageTitle()).toEqual('Login')
     })
 

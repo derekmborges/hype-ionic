@@ -1,5 +1,5 @@
-import { AppPage } from './app.po'
-import { LoginPage } from './login/login.po'
+import { AppPage } from './pages/app.po'
+import { LoginPage } from './pages/login.po'
 
 describe('Home Page', () => {
   let page: AppPage
@@ -10,9 +10,4 @@ describe('Home Page', () => {
     loginPage = new LoginPage()
   })
 
-  it('should display login page upon opening of the app', () => {
-    page.navigateTo()
-
-    expect(loginPage.getPageTitle()).toEqual('Login')
-  })
 })
