@@ -12,6 +12,13 @@ defmodule HypeWeb.TransactionView do
     }
   end
 
+  def render("all.json", %{transactions: transactions}) do
+    %{
+      ok: true,
+      data: render_many(transactions, TransactionView, "transaction.json")
+    }
+  end
+
   def render("transaction.json", %{transaction: transaction}) do
     %{
       id: transaction.id,

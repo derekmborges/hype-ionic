@@ -11,4 +11,13 @@ defmodule HypeWeb.TransactionController do
       |> render("show.json", transaction: transaction)
     end
   end
+
+  def all(conn, _) do
+    current_user = Guardian.Plug.current_resource(conn)
+
+    transactions = Sales.get_all_transactions_for_user(current_user.id)
+
+    conn
+    |> render("all.json", transactions: transactions)
+  end
 end

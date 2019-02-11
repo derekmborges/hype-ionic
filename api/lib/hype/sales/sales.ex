@@ -28,6 +28,12 @@ defmodule Hype.Sales do
 
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
+  def get_all_transactions_for_user(user_id) do
+    Transaction
+    |> where([t], t.user_id == ^user_id)
+    |> Repo.all()
+  end
+
   def create_transaction(attrs \\ %{}) do
     %Transaction{}
     |> Transaction.changeset(attrs)

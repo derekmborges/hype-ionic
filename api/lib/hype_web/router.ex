@@ -36,6 +36,7 @@ defmodule HypeWeb.Router do
 
     get "/users/", UserController, :current_user
     post "/items/", ItemController, :create
+    get "/transactions/", TransactionController, :all
     post "/transactions/", TransactionController, :create
   end
 end

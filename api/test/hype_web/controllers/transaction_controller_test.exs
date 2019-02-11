@@ -39,6 +39,50 @@ defmodule HypeWeb.TransactionControllerTest do
     end
   end
 
+  describe "show transactions" do
+    setup :create_user
+
+    test "returns all of the transactions for the user", %{conn: conn, user: user} do
+      transaction1 = TestData.create(:transaction, %{
+        user_id: user.id,
+        item_id: 1
+      })
+      transaction2 = TestData.create(:transaction, %{
+        user_id: user.id,
+        item_id: 2
+      })
+      transaction3 = TestData.create(:transaction, %{
+        user_id: user.id - 1,
+        item_id: 3
+      })
+
+      conn =
+        conn
+        |> Guardian.Plug.sign_in(user)
+        |> get("/api/transactions")
+
+      assert json_response(conn, 200)["ok"] == true
+      assert length(json_response(conn, 200)["data"]) == 2
+
+      resp_data = json_response(conn, 200)["data"]
+
+#      first = List.first(resp_data)
+      assert [first | [second | _]] = resp_data
+
+      assert first["id"] != nil
+      assert first["userId"] == user.id
+      assert first["itemId"] == transaction1.item_id
+      assert first["itemState"] == TestData.transaction.item_state
+      assert first["purchaseDate"] == Date.to_string(TestData.transaction.purchase_date)
+      assert first["purchaseAmount"] == Decimal.to_string(TestData.transaction.purchase_amount)
+      assert first["saleDate"] == Date.to_string(TestData.transaction.sale_date)
+      assert first["saleAmount"] == Decimal.to_string(TestData.transaction.sale_amount)
+
+      assert second["userId"] == user.id
+      assert second["itemId"] == transaction2.item_id
+    end
+  end
+
   def create_user(params) do
     user = TestData.create(:user)
     Map.put(params, :user, user)
