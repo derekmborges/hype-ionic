@@ -6,7 +6,10 @@ defmodule HypeWeb.TransactionController do
   action_fallback(HypeWeb.FallbackController)
 
   def create(conn = %{body_params: transaction_params}, _) do
-    with {:ok, %Transaction{} = transaction} <- Sales.create_transaction(transaction_params) do
+    current_user_id = Guardian.Plug.current_resource(conn).id
+
+    updated_transaction_params = Map.put(transaction_params, "user_id", current_user_id)
+    with {:ok, %Transaction{} = transaction} <- Sales.create_transaction(updated_transaction_params) do
       conn
       |> render("show.json", transaction: transaction)
     end
