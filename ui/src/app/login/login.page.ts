@@ -32,10 +32,8 @@ export class LoginPage implements OnInit {
       
       this.http.post('authentication/login', {email: this.email, password: this.password})
         .subscribe(response => {
-          console.log(response)
           if (response && response.ok) {
             console.log('Successfully authenticated!')
-            console.log('token from api: ' + response.data.token)
             this.storage.set('authToken', response.data.token)
               .then(() => this.events.publish('user:authChanged'))
             loader.dismiss()
@@ -49,7 +47,6 @@ export class LoginPage implements OnInit {
             }).then(it => it.present())
           } else {
             loader.dismiss()
-            console.log('logging in BOMBED UP. response: ', response)
             this.toast.create({
               message: 'Error logging in. Please try again later',
               duration: 3000,

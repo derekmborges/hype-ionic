@@ -28,7 +28,6 @@ export class AppComponent {
     this.platform.ready().then((readySource) => {
       this.statusBar.styleDefault()
       this.splashScreen.hide()
-      console.log('platform is ready: ' + readySource)
       this.checkLoggedIn()
 
       this.events.subscribe('user:authChanged', () => {
@@ -45,13 +44,11 @@ export class AppComponent {
         this.router.navigate(['/'])
       }
       else {
-        console.log('not logged in. routing to login page...')
         try {
           this.router.navigate(['/login'])
         } catch (error) {
           console.log('error navigating to login', error)
         }
-        
       }
     })
   }

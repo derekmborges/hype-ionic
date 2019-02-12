@@ -15,13 +15,11 @@ export class Authentication {
 
   isLoggedIn(): Promise<boolean> {
     return this.storage.get('authToken').then(value => {
-      console.log('token from storage: ', value)
       return value != null
     })
   }
 
   logout() {
-    console.log('Logging out...')
     this.storage.remove('authToken')
       .then(() => this.events.publish('user:authChanged'))
   }

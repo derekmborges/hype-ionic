@@ -30,7 +30,6 @@ export class SignupPage implements OnInit {
 
       this.http.post('users', newUser)
         .subscribe(responseData => {
-          console.log(responseData)
           if (responseData && responseData.ok) {
             this.alert.create({
               message: 'Success!',
@@ -38,8 +37,7 @@ export class SignupPage implements OnInit {
               buttons: [{text: 'Ok'}]
             }).then(it => it.present())
           }
-        }, (error) => {
-          console.log(error)
+        }, () => {
           this.toast.create({
             message: 'Error registering new user. Try again',
             color: 'danger'

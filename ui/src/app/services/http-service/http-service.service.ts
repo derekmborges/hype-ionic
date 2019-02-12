@@ -26,11 +26,10 @@ export class HttpService {
     return this.http.post(this.apiUrl + endpoint, body)
   }
 
-  postWithAuth(endpoint: string, body: any): Promise<Subscription> {
+  postWithAuth(endpoint: string, body: any): Promise<Observable<any>> {
     return this.auth.getToken().then(token => {
-      const headers = new HttpHeaders().set('Authorization', 'Bearer' + token)
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token)
       return this.http.post(this.apiUrl + endpoint, body, {headers: headers})
-        .subscribe(response => { return response })
     })
   }
 }

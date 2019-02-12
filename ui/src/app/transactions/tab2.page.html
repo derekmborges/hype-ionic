@@ -14,46 +14,22 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title text-center>
-        Purchased/In Stock
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list lines="none">
-        <ion-item>
-          Shoe 1
-        </ion-item>
-        <ion-item>
-          Shoe 2
-        </ion-item>
-        <ion-item>
-          Shoe 3
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>In Inventory</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let transaction of inventoryTransactions">
+        {{ transaction.itemId }} - {{ transaction.itemState }}
+    </ion-item>
+  </ion-list>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title text-center>
-        Sold
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list lines="none">
-        <ion-item>
-          Transaction 1
-        </ion-item>
-        <ion-item>
-          Transaction 2
-        </ion-item>
-        <ion-item>
-          Transaction 3
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Sold</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let transaction of soldTransactions">
+        {{ transaction.itemId }} - {{ transaction.itemState }}
+    </ion-item>
+  </ion-list>
 
 </ion-content>

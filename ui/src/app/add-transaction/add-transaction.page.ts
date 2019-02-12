@@ -7,17 +7,46 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./add-transaction.page.scss'],
 })
 export class AddTransactionPage implements OnInit {
+  isSold = false
+  transaction: Transaction
 
   constructor(private modal: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initializeTransaction()
+  }
 
   close() {
     this.modal.dismiss()
   }
 
-  async save() {
-    this.modal.dismiss({name: 'test-transaction'})
+  initializeTransaction() {
+    this.transaction = {
+      itemId: '',
+      purchaseDate: '',
+      purchaseAmount: 0.00,
+      saleDate: '',
+      saleAmount: 0.00,
+      itemState: 'in_inventory'
+    }
   }
 
+  toggleSold() {
+    this.isSold = !this.isSold
+    this.transaction.itemState = this.isSold ? 'sold' : 'in_inventory'
+  }
+
+  async save() {
+    this.modal.dismiss(this.transaction)
+  }
+
+}
+
+export interface Transaction {
+  itemId: string,
+  purchaseDate: string,
+  purchaseAmount: number,
+  saleDate: string,
+  saleAmount: number,
+  itemState: string
 }

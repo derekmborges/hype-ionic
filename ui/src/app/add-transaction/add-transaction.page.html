@@ -12,6 +12,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content *ngIf="transaction">
+
+  <ion-item>
+    <ion-label>Item Id</ion-label>
+    <ion-input [(ngModel)]="transaction.itemId"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Purchase Date</ion-label>
+    <ion-datetime [(ngModel)]="transaction.purchaseDate"
+      display-format="MMM DD, YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Purchase Amount</ion-label>
+    <ion-input [(ngModel)]="transaction.purchaseAmount"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item Sold</ion-label>
+    <ion-toggle [(ngModel)]="isSold" (click)="toggleSold()"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Sale Date</ion-label>
+    <ion-datetime [(ngModel)]="transaction.saleDate" [disabled]="!isSold"
+      display-format="MMM DD, YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Sale Amount</ion-label>
+    <ion-input [(ngModel)]="transaction.saleAmount" [disabled]="!isSold"></ion-input>
+  </ion-item>
 
 </ion-content>

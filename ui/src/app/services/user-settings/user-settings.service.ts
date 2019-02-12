@@ -10,9 +10,8 @@ export class UserSettings {
 
   getCurrentUser() {
     this.http.getWithAuth('users').then((data) => {
-      console.log('user returned from api:')
       data.subscribe(response => {
-        console.log(response)
+        console.log('current user: ', response.data.user)
       })
     })
   }
