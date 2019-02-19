@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'item-selection', loadChildren: './item-selection/item-selection.module#ItemSelectionPageModule' },
   // { path: 'add-transaction', loadChildren: './add-transaction/add-transaction.module#AddTransactionPageModule' }
 
 ];

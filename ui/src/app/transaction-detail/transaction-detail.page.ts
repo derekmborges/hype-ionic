@@ -1,26 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
+import { ItemSelectionPage } from '../item-selection/item-selection.page';
 
 @Component({
-  selector: 'app-add-transaction',
-  templateUrl: './add-transaction.page.html',
-  styleUrls: ['./add-transaction.page.scss'],
+  selector: 'app-transaction-detail',
+  templateUrl: './transaction-detail.page.html',
+  styleUrls: ['./transaction-detail.page.scss'],
 })
-export class AddTransactionPage implements OnInit {
+export class TransactionDetailPage implements OnInit {
   isSold = false
   transaction: Transaction
 
-  constructor(private modal: ModalController) { }
+  constructor(private modal: ModalController, private params: NavParams) {
+    if (this.params.data && this.params.data.transaction) {
+      this.transaction = this.params.data.transaction
+      this.isSold = this.transaction.itemState === 'sold'
+    }
+  }
 
   ngOnInit() {
-    this.initializeTransaction()
+    if (!this.transaction)
+      this.initializeNewTransaction()
   }
 
   close() {
     this.modal.dismiss()
   }
 
-  initializeTransaction() {
+  initializeNewTransaction() {
     this.transaction = {
       itemId: '',
       purchaseDate: '',

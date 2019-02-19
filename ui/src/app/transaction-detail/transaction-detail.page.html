@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Add Transaction</ion-title>
+    <ion-title id="transaction-details-header">Transaction Details</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="save()">
+      <ion-button id="save-transaction" (click)="save()">
         <ion-icon name="save"></ion-icon>
       </ion-button>
       <ion-button (click)="close()">
@@ -15,30 +15,30 @@
 <ion-content *ngIf="transaction">
 
   <ion-item>
-    <ion-label>Item Id</ion-label>
-    <ion-input [(ngModel)]="transaction.itemId"></ion-input>
+    <ion-label>Item ID</ion-label>
+    <ion-input text-right [(ngModel)]="transaction.itemId"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Purchase Date</ion-label>
-    <ion-datetime [(ngModel)]="transaction.purchaseDate"
+    <ion-datetime id="purchase-date" [(ngModel)]="transaction.purchaseDate"
       display-format="MMM DD, YYYY"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Purchase Amount</ion-label>
-    <ion-input [(ngModel)]="transaction.purchaseAmount"></ion-input>
+    <ion-input text-right [(ngModel)]="transaction.purchaseAmount" placeholder="0.00"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Item Sold</ion-label>
-    <ion-toggle [(ngModel)]="isSold" (click)="toggleSold()"></ion-toggle>
+    <ion-toggle id="toggle-sold" [checked]="isSold" (ionChange)="toggleSold()"></ion-toggle>
   </ion-item>
   <ion-item>
     <ion-label>Sale Date</ion-label>
-    <ion-datetime [(ngModel)]="transaction.saleDate" [disabled]="!isSold"
+    <ion-datetime id="sold-date" [(ngModel)]="transaction.saleDate" [disabled]="!isSold"
       display-format="MMM DD, YYYY"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Sale Amount</ion-label>
-    <ion-input [(ngModel)]="transaction.saleAmount" [disabled]="!isSold"></ion-input>
+    <ion-input text-right [(ngModel)]="transaction.saleAmount" placeholder="0.00" [disabled]="!isSold"></ion-input>
   </ion-item>
 
 </ion-content>

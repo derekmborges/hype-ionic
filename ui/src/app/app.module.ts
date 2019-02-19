@@ -11,19 +11,22 @@ import { UserSettings } from './services/user-settings/user-settings.service';
 import { HttpService } from './services/http-service/http-service.service';
 import { IonicStorageModule } from '@ionic/storage'
 import { HttpClientModule } from '@angular/common/http';
-import { AddTransactionPage } from './add-transaction/add-transaction.page';
-import { AddTransactionPageModule } from './add-transaction/add-transaction.module';
+import { TransactionDetailPage } from './transaction-detail/transaction-detail.page';
+import { TransactionDetailPageModule } from './transaction-detail/transaction-detail.module';
+import { ItemSelectionPage } from './item-selection/item-selection.page';
+import { ItemSelectionPageModule } from './item-selection/item-selection.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [AddTransactionPage],
+  entryComponents: [TransactionDetailPage, ItemSelectionPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    AddTransactionPageModule
+    TransactionDetailPageModule,
+    ItemSelectionPageModule
   ],
   providers: [
     StatusBar,

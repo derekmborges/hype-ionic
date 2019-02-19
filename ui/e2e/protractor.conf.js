@@ -8,7 +8,8 @@ exports.config = {
   specs: [
     // './src/**/*.e2e-spec.ts'
     './src/account.e2e-spec.ts',
-    './src/register-login.e2e-spec.ts'
+    './src/register-login.e2e-spec.ts',
+    './src/transaction.e2e-spec.ts'
   ],
   capabilities: {
     'browserName': 'chrome',

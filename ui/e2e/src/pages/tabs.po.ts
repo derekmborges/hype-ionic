@@ -6,4 +6,8 @@ export class Tabs {
         element(by.id('tab-button-tab4')).click()
     }
 
+    clickTransactionsTab() {
+        element(by.id('tab-button-tab2')).click()
+    }
+
 }
