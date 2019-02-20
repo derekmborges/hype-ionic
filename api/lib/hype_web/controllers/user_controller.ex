@@ -18,4 +18,13 @@ defmodule HypeWeb.UserController do
       |> render("show.json", user: user)
     end
   end
+
+  def delete(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+
+    with {:ok, %User{} = user} <- Accounts.delete_user(user) do
+      conn
+      |> render("show.json", user: user)
+    end
+  end
 end

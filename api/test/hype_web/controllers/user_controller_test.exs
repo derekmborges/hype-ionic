@@ -2,6 +2,7 @@ defmodule HypeWeb.UserControllerTest do
   use HypeWeb.ConnCase
 
   alias Hype.{Accounts, Auth.Guardian}
+  alias Hype.CommonTestData, as: TestData
 
   @user_params %{
     first_name: "test",
@@ -85,7 +86,7 @@ defmodule HypeWeb.UserControllerTest do
     end
 
     test "returns an error when user is sent with duplicate email", %{conn: conn} do
-      insert(:user)
+      TestData.create(:user)
 
       conn =
         conn
@@ -96,13 +97,26 @@ defmodule HypeWeb.UserControllerTest do
     end
   end
 
-  defp create_base_user(params) do
-    user = insert(:user)
-    Map.put(params, :user, user)
+  describe "delete user" do
+    test "it deletes a user by user id" do
+      user = TestData.create(:user)
+
+      conn =
+        conn
+        |> Guardian.Plug.sign_in(user)
+        |> delete("/api/users/")
+
+      assert json_response(conn, 200)["ok"] == true
+      assert json_response(conn, 200)["data"]["user"]["email"] == user.email
+      assert json_response(conn, 200)["data"]["user"]["firstName"] == user.first_name
+      assert json_response(conn, 200)["data"]["user"]["lastName"] == user.last_name
+
+      user_from_database = Accounts.get_user(user.id)
+    end
   end
 
-  defp insert(:user) do
-    {:ok, user} = Accounts.create_user(@user_params)
-    user
+  defp create_base_user(params) do
+    user = TestData.create(:user)
+    Map.put(params, :user, user)
   end
 end
